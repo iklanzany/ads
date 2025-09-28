@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Index GitHub Directory</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; background:#f9f9f9; }
+    h1 { text-align: center; }
+    ul { list-style: none; padding: 0; }
+    li { margin: 6px 0; }
+    a { text-decoration: none; color: #007bff; }
+    a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <h1>Daftar File di Repo</h1>
+  <ul id="fileList"><li>Loading...</li></ul>
+
+  <script>
+    async function loadRepo() {
+      const list = document.getElementById("fileList");
+      list.innerHTML = "";
+
+      // ganti username/repo dengan repo kamu
+      const apiUrl = "https://api.github.com/repos/iklanzany/ads/contents/";
+
+      try {
+        const res = await fetch(apiUrl);
+        const data = await res.json();
+
+        if (!Array.isArray(data)) {
+          list.innerHTML = "<li>Tidak ada data.</li>";
+          return;
+        }
+
+        data.forEach(item => {
+          const li = document.createElement("li");
+          if (item.type === "dir") {
+            li.innerHTML = `<strong>[DIR]</strong> <a href="${item.html_url}" target="_blank">${item.name}</a>`;
+          } else {
+            li.innerHTML = `<a href="${item.download_url}" target="_blank">${item.name}</a>`;
+          }
+          list.appendChild(li);
+        });
+      } catch (e) {
+        list.innerHTML = "<li>Gagal memuat data.</li>";
+        console.error(e);
+      }
+    }
+
+    loadRepo();
+  </script>
+</body>
+</html>
