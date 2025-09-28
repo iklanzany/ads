@@ -2,26 +2,91 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Index GitHub Directory</title>
   <style>
-    body { font-family: Arial, sans-serif; padding: 20px; background:#f9f9f9; }
-    h1 { text-align: center; }
-    ul { list-style: none; padding: 0; }
-    li { margin: 6px 0; }
-    a { text-decoration: none; color: #007bff; }
-    a:hover { text-decoration: underline; }
+    body {
+      font-family: Arial, sans-serif;
+      background:#f0f2f5;
+      margin:0;
+      padding:20px;
+    }
+
+    /* Bungkus utama */
+    #all-files {
+      max-width: 600px;
+      width: 90%;
+      margin: 40px auto;
+      padding: 20px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      text-align: center;
+      box-sizing: border-box;
+    }
+
+    #all-files h3 {
+      font-size: 1.4rem;
+      margin-bottom: 15px;
+      color: #222;
+      line-height: 1.3;
+    }
+
+    #fileList {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    #fileList li a {
+      display: block;
+      padding: 12px;
+      border-radius: 8px;
+      background: #f6f8fa;
+      color: #0073e6;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: all .2s ease;
+      word-wrap: break-word;
+    }
+
+    #fileList li a:hover {
+      background: #e8f2ff;
+      transform: translateY(-2px);
+    }
+
+    /* Responsif layar kecil */
+    @media (max-width: 480px) {
+      #all-files {
+        margin: 20px auto;
+        padding: 15px;
+        width: 95%;
+      }
+      #all-files h3 {
+        font-size: 1.1rem;
+      }
+      #fileList li a {
+        font-size: 0.9rem;
+        padding: 10px;
+      }
+    }
   </style>
 </head>
 <body>
-  <h1>Daftar File di Repo</h1>
-  <ul id="fileList"><li>Loading...</li></ul>
+  <div id="all-files">
+    <h3>📂 Daftar File di Repo</h3>
+    <ul id="fileList"><li>Loading...</li></ul>
+  </div>
 
   <script>
     async function loadRepo() {
       const list = document.getElementById("fileList");
       list.innerHTML = "";
 
-      // ganti username/repo dengan repo kamu
+      // Ganti dengan username/repo kamu
       const apiUrl = "https://api.github.com/repos/iklanzany/ads/contents/";
 
       try {
@@ -36,9 +101,9 @@
         data.forEach(item => {
           const li = document.createElement("li");
           if (item.type === "dir") {
-            li.innerHTML = `<strong>[DIR]</strong> <a href="${item.html_url}" target="_blank">${item.name}</a>`;
+            li.innerHTML = `<a href="${item.html_url}" target="_blank">📁 ${item.name}</a>`;
           } else {
-            li.innerHTML = `<a href="${item.download_url}" target="_blank">${item.name}</a>`;
+            li.innerHTML = `<a href="${item.download_url}" target="_blank">📄 ${item.name}</a>`;
           }
           list.appendChild(li);
         });
@@ -50,73 +115,5 @@
 
     loadRepo();
   </script>
-
-<style>
-/* Bungkus utama */
-#all-pages {
-  max-width: 600px;      /* batasi lebar max */
-  width: 90%;            /* lebar fleksibel biar muat di HP */
-  margin: 40px auto;     /* tengah horizontal */
-  padding: 20px;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-  text-align: center;
-  box-sizing: border-box; /* biar padding dihitung ke dalam width */
-}
-
-/* Judul */
-#all-pages h3 {
-  font-size: 1.4rem;
-  margin-bottom: 15px;
-  color: #222;
-  line-height: 1.3;
-}
-
-/* List default = kolom */
-#all-pages ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-/* Item */
-#all-pages li a {
-  display: block;
-  padding: 12px;
-  border-radius: 8px;
-  background: #f6f8fa;
-  color: #0073e6;
-  text-decoration: none;
-  font-size: 1rem;
-  transition: all .2s ease;
-  word-wrap: break-word;     /* biar judul panjang ga bikin overflow */
-}
-
-#all-pages li a:hover {
-  background: #e8f2ff;
-  transform: translateY(-2px);
-}
-
-/* Responsif layar kecil */
-@media (max-width: 480px) {
-  #all-pages {
-    margin: 20px auto;
-    padding: 15px;
-    width: 95%;            /* lebih fleksibel di HP kecil */
-  }
-  #all-pages h3 {
-    font-size: 1.1rem;
-  }
-  #all-pages li a {
-    font-size: 0.9rem;
-    padding: 10px;
-  }
-}
-</style>
-  
 </body>
 </html>
