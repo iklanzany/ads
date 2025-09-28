@@ -50,5 +50,73 @@
 
     loadRepo();
   </script>
+
+<style>
+/* Bungkus utama */
+#all-pages {
+  max-width: 600px;      /* batasi lebar max */
+  width: 90%;            /* lebar fleksibel biar muat di HP */
+  margin: 40px auto;     /* tengah horizontal */
+  padding: 20px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  text-align: center;
+  box-sizing: border-box; /* biar padding dihitung ke dalam width */
+}
+
+/* Judul */
+#all-pages h3 {
+  font-size: 1.4rem;
+  margin-bottom: 15px;
+  color: #222;
+  line-height: 1.3;
+}
+
+/* List default = kolom */
+#all-pages ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Item */
+#all-pages li a {
+  display: block;
+  padding: 12px;
+  border-radius: 8px;
+  background: #f6f8fa;
+  color: #0073e6;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: all .2s ease;
+  word-wrap: break-word;     /* biar judul panjang ga bikin overflow */
+}
+
+#all-pages li a:hover {
+  background: #e8f2ff;
+  transform: translateY(-2px);
+}
+
+/* Responsif layar kecil */
+@media (max-width: 480px) {
+  #all-pages {
+    margin: 20px auto;
+    padding: 15px;
+    width: 95%;            /* lebih fleksibel di HP kecil */
+  }
+  #all-pages h3 {
+    font-size: 1.1rem;
+  }
+  #all-pages li a {
+    font-size: 0.9rem;
+    padding: 10px;
+  }
+}
+</style>
+  
 </body>
 </html>
